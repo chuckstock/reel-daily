@@ -23,7 +23,8 @@ const app = new Frog<{ State: State }>({
 })
 
 // Uncomment to use Edge Runtime
-// export const runtime = 'edge'
+export const runtime = 'edge'
+
 app.frame('/movies/:movie_id', async (c) => {
   const { transactionId, buttonValue } = c
   const movieId = c.req.param('movie_id')
@@ -167,12 +168,14 @@ app.frame('/movies/:movie_id', async (c) => {
 
 app.transaction('/movies/:movie_id/rate', async (c) => {
   const { movie_id } = c.req.param()
+  const mintCost = await reeldailyContract.mintCost.get()
   return c.contract({
     abi: reeldailyContract.abi,
     to: reeldailyContract.address,
     functionName: 'mintReview',
     args: [BigInt(movie_id), Number(c.inputText)],
     chainId: 'eip155:8453',
+    value: mintCost,
   })
 })
 

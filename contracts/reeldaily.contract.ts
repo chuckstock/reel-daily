@@ -1,8 +1,8 @@
-import { Address } from "viem";
-import { reeldailyAbi } from "./reeldaily-abi";
+import { Address } from 'viem'
+import { reeldailyAbi } from './reeldaily-abi'
 
-import { createPublicClient, http } from 'viem';
-import { base } from 'viem/chains';
+import { createPublicClient, http } from 'viem'
+import { base } from 'viem/chains'
 
 export const chain = base
 
@@ -26,20 +26,33 @@ export const reeldailyContract = {
   movies: {
     get: getMovie,
     getRating: (movieId: string) => {
-      return publicClient.readContract({
-        abi: reeldailyContract.abi,
-        address: reeldailyContract.address,
-        functionName: 'getAverageRating',
-        args: [BigInt(movieId)],
-      }).catch(() => 0);
+      return publicClient
+        .readContract({
+          abi: reeldailyContract.abi,
+          address: reeldailyContract.address,
+          functionName: 'getAverageRating',
+          args: [BigInt(movieId)],
+        })
+        .catch(() => 0)
     },
     getReviewCount: (movieId: string) => {
-      return publicClient.readContract({
+      return publicClient
+        .readContract({
+          abi: reeldailyContract.abi,
+          address: reeldailyContract.address,
+          functionName: 'getReviewCount',
+          args: [BigInt(movieId)],
+        })
+        .catch(() => 0)
+    },
+  },
+  mintCost: {
+    get: () =>
+      publicClient.readContract({
         abi: reeldailyContract.abi,
         address: reeldailyContract.address,
-        functionName: 'getReviewCount',
-        args: [BigInt(movieId)],
-      }).catch(() => 0);
-    }
-  }
+        functionName: 'mintCost',
+        args: [],
+      }),
+  },
 }
