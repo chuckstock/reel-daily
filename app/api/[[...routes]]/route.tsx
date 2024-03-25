@@ -16,6 +16,10 @@ const app = new Frog<{ State: State }>({
   basePath: '/api',
   // Supply a Hub to enable frame verification.
   // hub: neynar({ apiKey: 'NEYNAR_FROG_FM' })
+  initialState: {
+    txHash: null,
+    txStatus: 'init',
+  },
 })
 
 // Uncomment to use Edge Runtime
@@ -144,6 +148,9 @@ app.frame('/movies/:movie_id', async (c) => {
             <p tw='text-6xl text-white uppercase w-full flex'>{movie.Title}</p>
             <p tw='text-5xl text-white uppercase w-full flex'>
               Rating: {rating.toString()}
+            </p>
+            <p tw='text-5xl text-white uppercase w-full flex'>
+              Reviews: {rating.toString()}
             </p>
           </div>
         </div>
